@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.AreaMapperDao">
+    <cache/>
+    <select id="queryAreaById" parameterType="_int">
+        select * from area where area_id = #{areaId}
+    </select>
+
+    <insert id="insertArea" parameterType="com.bean.Area"
+            useGeneratedKeys="true" keyColumn="area_id" keyProperty="areaId">
+        insert into area (area_name) values (#{areaName})
+    </insert>
+
+    <update id="updateAreaById">
+        update area set area_name = #{areaName}
+        where area_id = #{areaId}
+    </update>
+
+    <delete id="deleteAreaById" parameterType="_int">
+        delete from area where area_id = #{areaId}
+    </delete>
+
+</mapper>

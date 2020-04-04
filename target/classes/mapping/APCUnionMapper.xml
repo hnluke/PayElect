@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.APCUnionMapperDao">
+    <cache/>
+    <resultMap type="com.bean.PayDetail" id="unionQuery" autoMapping="true">
+        <id property="payId" column="pay_id"></id>
+        <!--        <result property="name" column="name"></result>-->
+        <association property="channel" javaType="com.bean.Channel" autoMapping="true">
+            <id property="chnId" column="chn_id"></id>
+        </association>
+        <association property="area" javaType="com.bean.Area" autoMapping="true">
+            <id property="areaId" column="area_id"></id>
+        </association>
+        <association property="users" javaType="com.bean.Users" autoMapping="true">
+            <id property="userId" column="user_id"></id>
+        </association>
+    </resultMap>
+    <!-- 关联查询   -->
+    <select id="queryAPCUnion" resultMap="unionQuery">
+        select A.*, B.*, C.*, D.*
+        from pay_detail A
+        inner join area B
+        on A.pay_area_id = B.area_id
+        inner join channel C
+        on A.pay_channel_id = C.chn_id
+        inner join users D
+        on A.pay_user_id = D.user_id
+        <where>
+            <if test="userNo !=null and userNo.trim() != ''">
+                and D.user_no = #{userNo}
+            </if>
+            <if test="userName != null and userName.trim() != ''">
+                and D.user_name = #{userName}
+            </if>
+            <if test="payDate != null and payDate.trim() != ''">
+                and A.pay_date = #{payDate}
+            </if>
+            <if test="payChannelId != null and payChannelId != 0">
+                and A.pay_channel_id = #{payChannelId}
+            </if>
+            <if test="payAreaId != null and payAreaId != 0">
+                and A.pay_area_id = #{payAreaId}
+            </if>
+        </where>
+    </select>
+
+
+    <resultMap type="com.bean.Summary" id="summaryQuery" autoMapping="true">
+        <id property="payId" column="pay_id"></id>
+        <!--        <result property="name" column="name"></result>-->
+            <result property="total" column="total"></result>
+            <result property="totalAccount" column="totalAccount"></result>
+            <result property="channels" column="chn_name"></result>
+
+<!--        <association property="channel" javaType="com.bean.Channel" autoMapping="true">-->
+<!--            <id property="chnId" column="chn_id"></id>-->
+
+
+<!--        </association>-->
+<!--        <association property="area" javaType="com.bean.Area" autoMapping="true">-->
+<!--            <id property="areaId" column="area_id"></id>-->
+<!--        </association>-->
+<!--        <association property="users" javaType="com.bean.Users" autoMapping="true">-->
+<!--            <id property="userId" column="user_id"></id>-->
+<!--        </association>-->
+    </resultMap>
+    <!-- 汇总查询   -->
+    <select id="queryAPCSummary" resultMap="summaryQuery">
+        select chn_name, count(*) as total, sum(A.pay_account) as totalAccount
+        from pay_detail A
+        inner join area B
+        on A.pay_area_id = B.area_id
+        inner join channel C
+        on A.pay_channel_id = C.chn_id
+        inner join users D
+        on A.pay_user_id = D.user_id
+        <trim prefix="group by" suffixOverrides=",">
+            <if test="payDate != ''">
+                pay_date,
+            </if>
+            <if test="payAreaId != ''">
+                pay_area_id,
+            </if>
+            <if test="payChannelId != ''">
+                pay_channel_Id,
+            </if>
+        </trim>
+
+    </select>
+
+</mapper>

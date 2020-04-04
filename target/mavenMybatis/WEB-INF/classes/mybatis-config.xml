@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+    <properties resource="db.properties"/>
+    <settings>
+        <setting name="logImpl" value="STDOUT_LOGGING" />
+        <setting name="mapUnderscoreToCamelCase" value="true" />
+        <setting name="cacheEnabled" value="false"/>
+    </settings>
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor"/>
+    </plugins>
+    <environments default="payElect">
+        <environment id="payElect">
+            <transactionManager type="JDBC" />
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}" />
+                <property name="url" value="${jdbc.url}" />
+                <property name="username" value="${jdbc.username}" />
+                <property name="password" value="${jdbc.password}" />
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <!--    映射文件    -->
+        <mapper resource="mapping/APCUnionMapper.xml" />
+        <mapper resource="mapping/AreaMapper.xml" />
+        <mapper resource="mapping/ChannelMapper.xml" />
+        <mapper resource="mapping/UsersMapper.xml" />
+        <mapper resource="mapping/PayDetailMapper.xml" />
+    </mappers>
+
+
+</configuration>
+
+
+

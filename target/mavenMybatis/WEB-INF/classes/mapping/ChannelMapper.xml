@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.ChannelMapperDao">
+    <cache/>
+    <select id="queryChannelById" parameterType="_int">
+        select * from channel where chn_id = #{chnId}
+    </select>
+
+    <insert id="insertChannel" parameterType="com.bean.Channel"
+            useGeneratedKeys="true" keyColumn="chn_id" keyProperty="chnId">
+        insert into channel (chn_name, chn_enable)
+        values (#{chnName}, #{chnEnable})
+    </insert>
+
+    <update id="updateChannelById" parameterType="com.bean.Channel">
+        update channel
+        <set>
+            <if test="chnName != null and chnName.trim() != ''">
+                chn_name = #{chnName},
+            </if>
+            chn_enable = #{chnEnable},
+        </set>
+        where area_id = #{areaId}
+    </update>
+
+    <delete id="deleteChannelById" parameterType="_int">
+        delete from channel where chn_id = #{chnId}
+    </delete>
+
+</mapper>

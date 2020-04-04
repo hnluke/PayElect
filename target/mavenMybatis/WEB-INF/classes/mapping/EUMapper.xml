@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.EUMapper">
+    <resultMap type="com.bean.Enterprise" id="unionQuery" autoMapping="true">
+    <id property="enpId" column="enp_id"></id>
+    <result property="enpUid" column="enp_uid"></result>
+
+    <association property="users" javaType="com.bean.Users">
+        <id property="userId" column="user_id"></id>
+        <result property="userName" column="user_name"></result>
+    </association>
+</resultMap>
+    <select id="queryAll" resultMap="unionQuery">
+        select * from enterprise a
+        left join users b
+        on a.enp_uid = b.user_id
+    </select>
+
+    <resultMap type="com.bean.Enterprise" id="unionQuery2" autoMapping="true">
+        <id property="enpId" column="enp_id"></id>
+        <result property="enpUid" column="enp_uid"></result>
+
+        <association property="users" javaType="com.bean.Users">
+            <id property="userId" column="user_id"></id>
+            <result property="userName" column="user_name"></result>
+        </association>
+    </resultMap>
+    <select id="queryUserName" resultMap="unionQuery2" parameterType="string">
+        select * from enterprise a
+        left join users b
+        on a.enp_uid = b.user_id
+        where b.user_name like "%${userName}%"
+    </select>
+
+
+</mapper>

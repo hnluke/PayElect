@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.EmployMapper">
+<!--    <resultMap type="java.util.HashMap" id="unionQuery">-->
+    <resultMap type="com.bean.Employee" id="unionQuery" autoMapping="true">
+        <id property="id" column="id"></id>
+<!--        <result property="name" column="name"></result>-->
+<!--        <result property="employee" column="employee"></result>-->
+<!--        <association property="vTable" javaType="com.bean.VTable">-->
+        <association property="vTable" javaType="com.bean.VTable">
+            <id property="vueEmployee" column="vue_employee"></id>
+            <result property="vueDesc" column="vue_desc"></result>
+        </association>
+    </resultMap>
+    <select id="findEmployById" resultMap="unionQuery" parameterType="string">
+        select * from employee a
+        left join vtable b
+        on a.employee = b.vue_employee
+        where a.name = #{name}
+    </select>
+
+    <insert id="insertEmploy" parameterType="com.bean.Employee" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+
+<!--        <selectKey resultType="Integer" order="AFTER" keyProperty="uuid">-->
+<!--            select uuid()-->
+<!--        </selectKey>-->
+         insert into employee (name, employee) values (#{name}, #{employee})
+    </insert>
+
+    <update id="updateEmploy" parameterType="com.bean.Employee" >
+        update employee set name=#{name}, employee=#{employee} where id=#{id}
+    </update>
+
+    <delete id="deleteEmploy" parameterType="java.lang.Integer">
+        delete from employee where id = #{id}
+    </delete>
+</mapper>

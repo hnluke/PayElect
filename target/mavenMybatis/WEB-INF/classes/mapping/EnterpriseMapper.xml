@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.EnterpriseMapper">
+    <!-- 查询   -->
+    <select id="findEnterpriseById" parameterType="_int" resultType="com.bean.Enterprise">
+        select * from enterprise where enp_id = #{enpId}
+    </select>
+
+    <update id="updateEnterprise" parameterType="com.bean.Enterprise">
+        update enterprise set(enp_uid, enp_legal, enp_legal_tele, enp_pCode, enp_Email, enp_createTime)
+        value (#{enpUId}, #{enpLegal}, #{enpLegalTele}, #{enpPCode}, #{enpEmail}, #{enpCreateTime})
+    </update>
+
+    <delete id="deleteEnterprise" parameterType="_int">
+        delete from enterprise where enp_id = #{eId}
+    </delete>
+
+    <insert id="insertEnterprise" parameterType="com.bean.Enterprise">
+        insert into enterprise (enp_uid, enp_legal, enp_legal_tele, enp_code, enp_email, enp_createTime)
+        values (#{enpUid}, #{enpLegal}, #{enpLegalTele}, #{enpCode}, #{enpEmail}, #{enpCreateTime})
+
+    </insert>
+</mapper>
