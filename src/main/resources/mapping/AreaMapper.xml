@@ -2,21 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dao.AreaMapperDao">
+    <!-- 开启二级缓存(还要储存mybatis配置文件的二级缓存开关) -->
     <cache/>
-    <select id="queryAreaById" parameterType="_int">
+    <!--  查询渠道表  -->
+    <select id="queryAreaById" parameterType="integer">
         select * from area where area_id = #{areaId}
     </select>
-
+    <!-- 插入渠道表(自动回写主键) -->
     <insert id="insertArea" parameterType="com.bean.Area"
             useGeneratedKeys="true" keyColumn="area_id" keyProperty="areaId">
         insert into area (area_name) values (#{areaName})
     </insert>
-
+    <!-- 修改渠道表 -->
     <update id="updateAreaById">
         update area set area_name = #{areaName}
         where area_id = #{areaId}
     </update>
-
+    <!-- 删除渠道表记录 -->
     <delete id="deleteAreaById" parameterType="_int">
         delete from area where area_id = #{areaId}
     </delete>

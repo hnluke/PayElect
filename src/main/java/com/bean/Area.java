@@ -1,10 +1,6 @@
 package com.bean;
-
-
-
 import java.io.Serializable;
 import java.util.Date;
-
 /**
  * 序列化pojo对象Area
  */
