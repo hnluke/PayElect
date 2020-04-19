@@ -60,37 +60,40 @@
     <table border="1" cellspacing="" cellpadding="" width="70%" align="center">
         <tr>
             <td>户号</td>
-            <td><input type="text" name="userNo" style="width: 90%;" class="myClass"></td>
+            <td><input type="text" name="userNo" style="width: 90%;" class="myClass"
+            value="${!empty(condition_list)?condition_list.get(0):''}"></td>
             <td>户主姓名</td>
-            <td><input type="text" name="userName"/></td>
+            <td><input type="text" name="userName"
+                       value="${!empty(condition_list)?condition_list.get(1):''}"/></td>
             <%--            <td><input type="text" class="myClass" name="enpCreateTime" onclick="WdatePicker()"/></td>--%>
         </tr>
         <tr>
             <td>资金渠道</td>
             <td>
                 <select name="payChannelId">
-                    <option value="0">请选择</option>
-                    <option value="1">营业厅</option>
-                    <option value="2">银行代缴</option>
-                    <option value="3">支付宝</option>
-                    <option value="4">微信</option>
+                    <option value="0" ${!empty(condition_list)?((condition_list.get(3)=='0')?'selected':'') :'selected'}>请选择</option>
+                    <option value="1" ${!empty(condition_list)?((condition_list.get(3)=='1')?'selected':'') :''}>营业厅</option>
+                    <option value="2" ${!empty(condition_list)?((condition_list.get(3)=='2')?'selected':'') :''}>银行代缴</option>
+                    <option value="3" ${!empty(condition_list)?((condition_list.get(3)=='3')?'selected':'') :''}>支付宝</option>
+                    <option value="4" ${!empty(condition_list)?((condition_list.get(3)=='4')?'selected':'') :''}>微信</option>
                 </select>
             </td>
             <td>所属片区</td>
             <td>
                 <select name="payAreaId">
-                    <option value="0">请选择</option>
-                    <option value="1">一栋</option>
-                    <option value="2">二栋</option>
-                    <option value="3">三栋</option>
-                    <option value="4">四栋</option>
-                    <option value="5">五栋</option>
+                    <option value="0" ${!empty(condition_list)?((condition_list.get(4)=='0')?'selected':'') :'selected'}>请选择</option>
+                    <option value="1" ${!empty(condition_list)?((condition_list.get(4)=='1')?'selected':'') :''}>一栋</option>
+                    <option value="2" ${!empty(condition_list)?((condition_list.get(4)=='2')?'selected':'') :''}>二栋</option>
+                    <option value="3" ${!empty(condition_list)?((condition_list.get(4)=='3')?'selected':'') :''}>三栋</option>
+                    <option value="4" ${!empty(condition_list)?((condition_list.get(4)=='4')?'selected':'') :''}>四栋</option>
+                    <option value="5" ${!empty(condition_list)?((condition_list.get(4)=='5')?'selected':'') :''}>五栋</option>
                 </select>
             </td>
         </tr>
         <tr>
             <td>缴纳日期</td>
-            <td><input type="text" class="myClass" name="payDate" onclick="WdatePicker()" autocomplete="off"/></td>
+            <td><input type="text" class="myClass" name="payDate" onclick="WdatePicker()" autocomplete="off"
+                       value="${!empty(condition_list)?condition_list.get(2):''}"/></td>
             <td></td>
             <td>
             </td>

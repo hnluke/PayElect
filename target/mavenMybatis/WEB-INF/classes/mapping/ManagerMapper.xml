@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.ManagerMapperDao">
+    <cache/>
+    <select id="findManagerByName" parameterType="string" resultType="com.bean.Manager">
+        select * from manager where mag_user_name = #{magUserName}
+    </select>
+</mapper>

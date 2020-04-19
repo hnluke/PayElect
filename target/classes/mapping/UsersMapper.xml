@@ -6,7 +6,7 @@
     <select id="queryUsersByUserNO" resultType="com.bean.Users" parameterType="string">
         select * from users where user_no = #{userNo}
     </select>
-    <!-- 新增用户   -->
+    <!-- 新增用户, 自动回写主键  -->
     <insert id="insertUser" parameterType="com.bean.Users" useGeneratedKeys="true"
             keyColumn="user_id" keyProperty="userId">
         insert into users (user_no, user_name)

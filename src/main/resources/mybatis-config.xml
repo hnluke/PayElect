@@ -10,7 +10,7 @@
         <setting name="logImpl" value="STDOUT_LOGGING" />
         <!-- 设置驼峰命名自动映射  -->
         <setting name="mapUnderscoreToCamelCase" value="true" />
-        <!-- 开启二级缓存  -->
+        <!-- 开启二级缓存(总开关)  -->
         <setting name="cacheEnabled" value="false"/>
     </settings>
     <!-- 分页插件配置 -->
@@ -37,6 +37,7 @@
         <mapper resource="mapping/ChannelMapper.xml" />
         <mapper resource="mapping/UsersMapper.xml" />
         <mapper resource="mapping/PayDetailMapper.xml" />
+        <mapper resource="mapping/ManagerMapper.xml" />
     </mappers>
 
 

@@ -3,6 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dao.APCUnionMapperDao">
     <cache/>
+    <!-- 表关联查询，结果映射resultMap方式 -->
     <resultMap type="com.bean.PayDetail" id="unionQuery" autoMapping="true">
         <id property="payId" column="pay_id"></id>
         <!--        <result property="name" column="name"></result>-->
@@ -16,7 +17,6 @@
             <id property="userId" column="user_id"></id>
         </association>
     </resultMap>
-    <!-- 关联查询   -->
     <select id="queryAPCUnion" resultMap="unionQuery">
         select A.*, B.*, C.*, D.*
         from pay_detail A
@@ -45,7 +45,7 @@
         </where>
     </select>
 
-
+    <!-- 汇总查询，结果映射resultMap方式 -->
     <resultMap type="com.bean.Summary" id="summaryQuery" autoMapping="true">
         <id property="payId" column="pay_id"></id>
         <!--        <result property="name" column="name"></result>-->
@@ -53,19 +53,7 @@
             <result property="totalAccount" column="totalAccount"></result>
             <result property="channels" column="chn_name"></result>
 
-<!--        <association property="channel" javaType="com.bean.Channel" autoMapping="true">-->
-<!--            <id property="chnId" column="chn_id"></id>-->
-
-
-<!--        </association>-->
-<!--        <association property="area" javaType="com.bean.Area" autoMapping="true">-->
-<!--            <id property="areaId" column="area_id"></id>-->
-<!--        </association>-->
-<!--        <association property="users" javaType="com.bean.Users" autoMapping="true">-->
-<!--            <id property="userId" column="user_id"></id>-->
-<!--        </association>-->
     </resultMap>
-    <!-- 汇总查询   -->
     <select id="queryAPCSummary" resultMap="summaryQuery">
         select chn_name, count(*) as total, sum(A.pay_account) as totalAccount
         from pay_detail A

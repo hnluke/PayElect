@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dao.ChannelMapperDao">
     <cache/>
-    <select id="queryChannelById" parameterType="_int">
+    <select id="queryChannelById" parameterType="integer">
         select * from channel where chn_id = #{chnId}
     </select>
 
@@ -24,7 +24,7 @@
         where area_id = #{areaId}
     </update>
 
-    <delete id="deleteChannelById" parameterType="_int">
+    <delete id="deleteChannelById" parameterType="integer">
         delete from channel where chn_id = #{chnId}
     </delete>
 

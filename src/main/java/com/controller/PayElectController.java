@@ -34,9 +34,11 @@ public class PayElectController {
      */
     @RequestMapping("/payElec")
     public String payElec(Users users, PayDetail payDetail, HttpServletRequest request) {
-        String notice = "缴费失败";
+        String notice = "";
         if(PayElecFactory.getPayElecServiceImpl().payElec(users, payDetail)) {
             notice = "缴费成功";
+        }else{
+            notice = "缴费失败";
         }
         request.setAttribute("notice", notice);     // 缴费完毕回馈信息
         return "payElec";
@@ -65,23 +67,25 @@ public class PayElectController {
                                    String payDate, Integer payChannelId,
                                    Integer payAreaId, String pages) {
         ModelAndView mav = new ModelAndView();
-        // 定制查询的结果list
+         //定制查询的结果list
         int page = 1;
         try {
+            if(pages == null)
+                pages = "1";
             page = Integer.parseInt(pages);
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }
-        // 分页显示
-        Page pageList =  PageHelper.startPage(page,10);
+         //分页显示
+        Page pageList =  PageHelper.startPage(page,5);
         List<PayDetail> list = PayElecFactory.getPayElecServiceImpl()
-                .queryElec(userNo, userName, payDate, payChannelId, payAreaId);
-        // 如果这一页没有记录，则返回上一页的记录给前端，同时当前页面-1
+                    .queryElec(userNo, userName, payDate, payChannelId, payAreaId);
+            // 如果这一页没有记录，则返回上一页的记录给前端，同时当前页面-1
         if(pageList.getResult().size() == 0 && page > 1) {
             page = page -1 ;
-            PageHelper.startPage(page,10);
+            PageHelper.startPage(page,5);
             list = PayElecFactory.getPayElecServiceImpl()
-                    .queryElec(userNo, userName, payDate, payChannelId, payAreaId);
+                .queryElec(userNo, userName, payDate, payChannelId, payAreaId);
         }
         // 查询条件的集合condition，条件回写
         List<Object> condition_list = new ArrayList<Object>();
